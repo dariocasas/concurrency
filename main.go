@@ -6,6 +6,7 @@ import (
 	"sync"
 )
 
+// See https://github.com/dariocasas/concurrency
 // See https://go.dev/blog/pipelines (Sameer Ajmani)
 
 const concurrency = 4
@@ -38,11 +39,11 @@ func main() {
 	// run workers
 	outChannels := runWorkers(spreadChans, f)
 
-	// Stage 3
+	// Stage 4
 	// fan in
 	sinkChan := merge(done, outChannels...)
 
-	// Stage 4 (sink or consumer)(only inbound channel)
+	// Stage 5 (sink or consumer)(only inbound channel)
 	for n := range sinkChan {
 		fmt.Printf("a  %s \n", n)
 	}
